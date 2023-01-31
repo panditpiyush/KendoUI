@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Combo-Box</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.3.913/styles/kendo.default-ocean-blue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/kendo.all.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- The ComboBox provides full control over the way an item, the popup header and the popup footer are rendered by using the Kendo UI templates. -->
+                <input id="comboBox" />
+            </div>
+            <div class="col">
+                <input id="comboBox1" />
+            </div>
+            <div class="col">
+                <input id="comboBox3" />
+            </div>
+        </div>
+    </div>
+
+    <!-- how to define an item template. -->
+    <script id="scriptTemplate" type="text/x-kendo-template">
+        ContactName: #:data.ContactName#, CustomerID: #:data.CustomerID#
+    </script>
+
+    <!-- The header template -->
+    <script id="headerTemplate" type="text/x-kendo-template">
+        <strong>Header</strong>
+    </script>
+
+    <!-- The footer template  -->
+    <script id="footerTemplate" type="text/x-kendo-template">
+        Total <strong>#: instance.dataSource.total() #</strong> items found
+    </script>
+    <script>
+        $(document).ready(function () {
+            // The following example demonstrates how to define an item template.
+            $("#comboBox").kendoComboBox({
+                template: $("#scriptTemplate").html(),
+                placeholder: "Template",
+                dataTextField: "ContactName",
+                dataValueField: "CustomerID",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "jsonp",
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
+                        }
+                    }
+                }
+            });
+
+            // The header template manages the way the popup header of a ComboBox is rendered.
+            $("#comboBox1").kendoComboBox({
+                headerTemplate: $("#headerTemplate").html(),
+                placeholder: "Header-Template",
+                dataTextField: "ContactName",
+                dataValueField: "CustomerID",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "jsonp",
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
+                        }
+                    }
+                }
+            });
+
+            //The footer template manages the way the pop-up footer of a ComboBox is rendered. The footer is re-rendered on every change of the Data Source. 
+            $("#comboBox3").kendoComboBox({
+                footerTemplate: $("#footerTemplate").html(),
+                placeholder: "footer-Template",
+                dataTextField: "ContactName",
+                dataValueField: "CustomerID",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "jsonp",
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
