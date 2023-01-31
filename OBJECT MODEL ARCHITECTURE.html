@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.3.913/styles/kendo.default-ocean-blue.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/kendo.all.min.js"></script>
+</head>
+
+<body>
+    <script>
+        //Creating New Objects
+        //To create a new object with Kendo UI, define it by calling kendo.Class.extend—for example, var person = kendo.Class.extend({});.
+        //This approach creates a new person object to which you can add properties and functions.
+        //The approach uses an object literal notation so to separate them from their value, you have to declare variables with a semi-colon (:) instead of an equal sign (=).
+        // Also, the example uses the this keyword to reference local variables inside the object. If the context results are not specified, the variable will not be found.
+        var Person = kendo.Class.extend({
+            firstName: 'Not Set',
+            lastName: 'Not Set',
+            isAPrettyCoolPerson: false,
+            sayHello: function () {
+                alert("Hello! I'm " + this.firstName + " " + this.lastName);
+            },
+            dob: "20-12-1999"
+        });
+
+        var a = new Person();
+        a.sayHello();
+
+        //Adding Constructors
+        //You can also add a constructor for this object by including an init method. To create a new person, build up a new person object, such as a new John Bristowe),
+        // and set isAPrettyCoolPerson to true.
+        var People = kendo.Class.extend({
+            firstName: 'Not Set',
+            lastName: 'Not Set',
+            isAPrettyCoolPerson: false,
+            //Adding Constructor :Cannont use Get and Set Method in Constructor
+            init: function (firstName, lastName) {
+                if (firstName) {
+                    this.firstName = firstName;
+                }
+                if (lastName) {
+                    this.lastName = lastName;
+                }
+            },
+            sayHello: function () {
+                alert("Hello! I'm Working " + this.firstName + " " + this.lastName);
+            }
+        });
+
+        var b = new People("Piyush", "Pandit");
+        b.isAPrettyCoolPerson = true;
+        b.sayHello();
+
+        //Instantiating New Parent Objects
+        //You can instantiate a new person object of type parent that inherits the properties of person by extending the base person object and toggle the quality (cool).
+        var Parent = Person.extend({
+            firstName: 'Arun',
+            lastName: 'Sahu'
+        });
+
+        var myDad = new Parent();
+        myDad.isAPrettyCoolPerson = true;
+        myDad.sayHello();
+        alert(myDad.isAPrettyCoolPerson);
+
+        //Inheriting Parent Properties
+        //A child inherits some, but not all, properties from their parents. If you inherit your Parent last name, you can override the first name since you have your own. 
+        var Child = Parent.extend({});
+        var me = new Child();
+        me.firstName = "Burke";
+        me.sayHello();
+        me.isAPrettyCoolPerson = "Hello I am Working";
+        alert(me.isAPrettyCoolPerson);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.3.913/styles/kendo.default-ocean-blue.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/kendo.all.min.js"></script>
+</head>
+
+<body>
+    <!-- The kendo.data.ObservableObject is an important part of the Kendo UI MVVM framework, specifically of the View-Model -->
+    <script>
+        // To get the value of an ObservableObject field, use the get method.
+        var viewModel = kendo.observable({
+            name: "Piyush Pandit"
+        });
+
+        var name = viewModel.get("name");
+        alert(name);//Show "Piyush Pandit"
+
+        // Demonstrates how to get a nested field value.
+        var viewModel1 = kendo.observable({
+            person: {
+                name: "Piyush Pandit"
+            }
+        });
+        var personName = viewModel1.get("person.name");
+        alert(personName);
+
+        //To set the value of an ObservableObject field, use the set method.
+        var viewModel2 = kendo.observable({
+            name: "Piyush Pandit"
+        });
+
+        viewModel2.set("name", "Arun"); //set the "name" field to "Arun"
+
+        var name = viewModel2.get("name");
+        alert(name); // shows "Arun"
+
+        //Demonstrates how to set a nested field value
+        var viewModel3 = kendo.observable({
+            person: {
+                name: "John Doe"
+            }
+        });
+
+        viewModel3.set("person.name", "Asir");
+
+        var personName = viewModel3.get("person.name");
+        alert(personName); // shows "Asir"
+    </script>
+</body>
+
+</html>

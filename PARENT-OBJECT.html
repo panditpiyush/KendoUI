@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.3.913/styles/kendo.default-ocean-blue.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/kendo.all.min.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script>
+        function log(msg) {
+            $("#content").append("<p>" + msg + "</p>");
+        }
+
+        log("Hello I am Function")
+
+        // Create a new person class.
+        var Person = kendo.Class.extend({
+            firstName: 'Not Set',
+            lastName: 'Not Set',
+            isPrettyCoolPerson: false,
+            //Creating Constructor
+            init: function (firstName, lastName) {
+                if (firstName) this.firstName = firstName;
+                if (lastName) this.lastName = lastName;
+            },
+            sayHello: function () {
+                log("Hello! I'm " + this.firstName + " " + this.lastName)
+            }
+        });
+
+        // Create a new person.
+        var a = new Person("Piyush", "Pandit");
+        // Say hello Piyush Pandit
+        a.sayHello();
+
+        // Create a parent object of type person.
+        var Parent = Person.extend({
+            firstName: 'Irshad',
+            lastName: 'Ali'
+        });
+
+        // Create the parent.
+        var myDad = new Parent();
+        myDad.isPrettyCoolPerson = true;
+
+        // Say hello, parent.
+        myDad.sayHello();
+
+        // Expose the parent's coolness factor.
+        log("Cool? " + myDad.isPrettyCoolPerson);
+
+        // Create a new child object that inherits from the parent.
+        var Child = Parent.extend({});
+
+        // Create me.
+        var me = new Child();
+        me.firstName = "Burke";
+
+        // Hello!
+        me.sayHello();
+        // Expose my coolness.  
+        log("Cool? " + me.isPrettyCoolPerson);
+    </script>
+</body>
+
+</html>
