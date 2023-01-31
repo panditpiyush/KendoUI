@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.3.913/styles/kendo.default-ocean-blue.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/kendo.all.min.js"></script>
+</head>
+
+<body>
+    <span id="name" data-bind="text: fullName"></span>
+
+    <div id="div">
+        <p>Full Name: <input data-bind="value: fullName"></p>
+        <p>First Name: <span id="fname" data-bind="text: firstName"></span></p>
+        <p>Last Name: <span id="lname" data-bind="text: lastName"></span></p>
+        <p> Name: <span id="tname" data-bind="value:fullName"></span></p>
+    </div>
+    <script>
+        //To convert a View-Model field value to a format that is more suitable for displaying in the View, extend the View-Model with a dependent method 
+        // how to create dependent methods, also known as calculated fields. fullName is a dependent method because it depends on firstName and lastName.
+        //Changing the value of either firstName or lastName via the set method would also change fullName. As a result, all bindings referring to fullName are going to be updated.
+        var viewModel = kendo.observable({
+            firstName: "Piyush",
+            lastName: "Pandit",
+            fullName: function () {
+                return this.get("firstName") + " " + this.get("lastName");
+            }
+        });
+
+        kendo.bind($("#name"), viewModel);
+
+        //Demonstrates how to set values of dependent properties.
+        var vm = kendo.observable({
+            firstName: "Piyush",
+            lastName: "Pandit",
+            fullName: function (value) {
+                $('#tname').html(value)
+                if (value !== undefined) {
+                    var name = value.split(" ");
+
+                    this.set("firstName", name[0]);
+                    this.set("lastName", name[1]);
+                } else {
+                    return this.get("firstName") + " " + this.get("lastName");
+                }
+            }
+        });
+
+        kendo.bind($('#div'), vm);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.3.913/styles/kendo.default-ocean-blue.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2022.3.913/js/kendo.all.min.js"></script>
+</head>
+
+<body>
+    <!-- MVVM is essentially the MVC pattern with specific changes to support development of applications using Windows Presentation Foundation.
+
+    The keys to MVVM are in that its a simple separation pattern that:
+    separates view (the page)
+    separates the model (the raw data)
+    separates the viewmodel (presentation logic) -->
+
+    <!-- Declare a View. The View is the UI, i.e. a set of HTML elements, which will be bound to the View-Model.
+    In the following example, the input value (its text) is bound via the data-bind attribute to the name field of the View-Model. 
+    When that field changes, the input value is updated to reflect that change. The opposite is also true: when the value of the input changes,
+    the field is updated. The click event of the button is bound via the data-bind attribute to the displayGreeting method of the View-Model. 
+    That method will be invoked when the user clicks the button. -->
+
+    <div id="view">
+        <input type="text" data-bind="value: name" placeholder="Please Type Text">
+        <button data-bind="click: displayGreeting">Display Greeting</button>
+    </div>
+
+    <!-- Bindings are specified via the data-bind attribute in the form <binding name>: <view model field or method>, 
+    e.g. value: name. Two bindings were used in the aforementioned example: value and click. -->
+
+    <!-- The Kendo UI MVVM supports binding to other properties as well: source, html, attr, visible, enabled, and other. 
+    The data-bind may contain a comma-separated list of bindings e.g. data-bind="value: name, visible: isNameVisible" -->
+
+    <div data-bind="text: person.lowerCaseName"></div>
+    <div data-bind="text: person.toLowerCase()"></div>
+
+    <script>
+        //Start by creating a View-Model object. The View-Model is a representation of your data (the Model) which will be displayed in the View.
+        //To declare your View-Model use the kendo.observable function and pass it a JavaScript object.
+
+        var viewModel = kendo.observable({
+            name: "",
+            displayGreeting: function () {
+                var name = this.get("name");
+                alert("Hello, " + name + "!!!");
+            }
+        });
+
+        //Bind the View to the View-Model. This is done by calling the kendo.bind method
+        kendo.bind($("#view"), viewModel);
+
+        // Bindings are not JavaScript code. Although bindings look like JavaScript code, they are not. The <div data-bind="text: person.name.toLowerCase()"></div> 
+        // chunk of code is not a valid Kendo UI MVVM binding declaration.
+        //  If a value from the View-Model requires processing before displaying it in the View, a method should be created and used instead.
+        var viewModel1 = kendo.observable({
+            person: {
+                name: "JOHN",
+                lowerCaseName: function () {
+                    return this.get("name").toLowerCase();
+                }
+            }
+        });
+        kendo.bind($("div"), viewModel1)
+    </script>
+</body>
+
+</html>
